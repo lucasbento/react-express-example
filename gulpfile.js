@@ -24,9 +24,9 @@ gulp.task('bundle', function() {
 	.pipe(gulp.dest('./.tmp'));
 });
 
-gulp.task('jsx-watch', ['bundle'], browserSync.reload);
+gulp.task('watch', ['bundle'], browserSync.reload);
 
-gulp.watch('app/**/*.jsx', ['jsx-watch']);
+gulp.watch('app/*', ['watch']);
 
 gulp.task('serve', ['bundle', 'live-server'], function() {
 	browserSync.init(null, {
