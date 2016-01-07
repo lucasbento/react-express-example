@@ -11,6 +11,9 @@ gulp.task('live-server', function() {
 });
 
 gulp.task('bundle', function() {
+	gulp.src(['app/*.css'])
+	.pipe(gulp.dest('./.tmp'));
+
 	return browserify({
 		entries: 'app/main.jsx',
 		debug: true,
@@ -21,7 +24,11 @@ gulp.task('bundle', function() {
 	.pipe(gulp.dest('./.tmp'));
 });
 
-gulp.task('serve', ['live-server'], function() {
+gulp.task('jsx-watch', ['bundle'], browserSync.reload);
+
+gulp.watch('app/**/*.jsx', ['jsx-watch']);
+
+gulp.task('serve', ['bundle', 'live-server'], function() {
 	browserSync.init(null, {
 		proxy: 'http://localhost:7777/',
 		port: 9001
